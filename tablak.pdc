@@ -1,0 +1,56 @@
+CREATE TABLE Felhasznalo (
+    id NUMBER PRIMARY KEY,
+    nev VARCHAR2(250) NOT NULL,
+    email VARCHAR2(250) UNIQUE NOT NULL,
+    erdeklodesi_kor VARCHAR2(500),
+    tartozkodasi_radiusz NUMBER CHECK (tartozkodasi_radiusz >= 0),
+    regisztracio_ideje DATE DEFAULT SYSDATE NOT NULL,
+    statusz VARCHAR2(50) CHECK (statusz IN ('Aktív', 'Inaktív')) NOT NULL
+);
+
+CREATE TABLE Esemeny (
+    id NUMBER PRIMARY KEY,
+    nev VARCHAR2(250) NOT NULL,
+    korhatar NUMBER CHECK (korhatar >= 0),
+    erdeklodesi_kor VARCHAR2(500),
+    tartozkodasi_radiusz NUMBER CHECK (tartozkodasi_radiusz >= 0),
+    esemeny_kezdete DATE DEFAULT SYSDATE NOT NULL,
+    esemeny_vege DATE DEFAULT SYSDATE NOT NULL,
+    statusz VARCHAR2(50) CHECK (statusz IN ('Aktív', 'Inaktív')) NOT NULL
+);
+
+CREATE TABLE Esemeny_Kedveles (
+    id NUMBER PRIMARY KEY,
+    felhasznalo_id NUMBER NOT NULL,
+    esemeny_id NUMBER NOT NULL,
+    kedveles_datuma DATE DEFAULT SYSDATE NOT NULL,
+    FOREIGN KEY (felhasznalo_id) REFERENCES Felhasznalo(id),
+    FOREIGN KEY (esemeny_id) REFERENCES Esemeny(id)
+);
+
+CREATE TABLE Esemeny_Regisztracio (
+    id NUMBER PRIMARY KEY,
+    felhasznalo_id NUMBER NOT NULL,
+    esemeny_id NUMBER NOT NULL,
+    regisztracio_datuma DATE DEFAULT SYSDATE NOT NULL,
+    FOREIGN KEY (felhasznalo_id) REFERENCES Felhasznalo(id),
+    FOREIGN KEY (esemeny_id) REFERENCES Esemeny(id)
+);
+
+DROP TABLE Helyszin CASCADE CONSTRAINTS;
+
+CREATE TABLE Helyszin (
+    id NUMBER PRIMARY KEY,
+    esemeny_id NUMBER NOT NULL,
+    varos VARCHAR2(250) NOT NULL,
+    utca VARCHAR2(250) NOT NULL,
+    hazszam VARCHAR2(50) NOT NULL,
+    FOREIGN KEY (esemeny_id) REFERENCES Esemeny(id)
+);
+
+CREATE TABLE Kedvelt_Kategoriak (
+    id NUMBER PRIMARY KEY,
+    felhasznalo_id NUMBER NOT NULL,
+    kategoria NVARCHAR2(250) NOT NULL,
+    FOREIGN KEY (felhasznalo_id) REFERENCES Felhasznalo(id)
+);
