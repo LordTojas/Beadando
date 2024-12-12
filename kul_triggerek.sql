@@ -4,7 +4,7 @@ FOR EACH ROW
 BEGIN
    
     IF :NEW.statusz IS NULL THEN
-        :NEW.statusz := 'aktív';
+        :NEW.statusz := 'Aktiv';
     END IF;
 END;
 /
@@ -15,7 +15,7 @@ FOR EACH ROW
 BEGIN
    
     IF :NEW.statusz IS NULL THEN
-        :NEW.statusz := 'aktív';
+        :NEW.statusz := 'Aktiv';
     END IF;
 END;
 /
@@ -27,7 +27,7 @@ BEGIN
     
     IF SYSDATE > :NEW.idotartam THEN
         UPDATE Esemeny
-        SET statusz = 'inaktív'
+        SET statusz = 'Inaktiv'
         WHERE id = :NEW.id;
     END IF;
 END;
