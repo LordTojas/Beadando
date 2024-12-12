@@ -37,7 +37,7 @@ CREATE OR REPLACE PACKAGE BODY FelhasznaloEsemenyKezeles AS
     BEGIN
         INSERT INTO Felhasznalo (nev, email, erdeklodesi_kor, tartozkodasi_radiusz, regisztracio_ideje)
         VALUES (p_nev, p_email, p_erdeklodesi_kor, p_tartozkodasi_radiusz, p_regisztracio_ideje);
-        DBMS_OUTPUT.PUT_LINE('Felhasználó sikeresen regisztrálva: ' || p_nev);
+        DBMS_OUTPUT.PUT_LINE('FelhasznÃ¡lÃ³ sikeresen regisztrÃ¡lva: ' || p_nev);
     END Felhasznalo_Regisztracio;
 
     PROCEDURE Felhasznalo_Torles(
@@ -57,7 +57,7 @@ CREATE OR REPLACE PACKAGE BODY FelhasznaloEsemenyKezeles AS
         WHERE id = p_felhasznalo_id;
 
         COMMIT;
-        DBMS_OUTPUT.PUT_LINE('Felhasználó törölve, ID: ' || p_felhasznalo_id);
+        DBMS_OUTPUT.PUT_LINE('FelhasznÃ¡lÃ³ tÃ¶rÃ¶lve, ID: ' || p_felhasznalo_id);
     END Felhasznalo_Torles;
 
     PROCEDURE Esemeny_Felvetel(
@@ -70,7 +70,7 @@ CREATE OR REPLACE PACKAGE BODY FelhasznaloEsemenyKezeles AS
     ) AS
     BEGIN
         INSERT INTO Esemeny (nev, korhatar, erdeklodesi_kor, tartozkodasi_radiusz, esemeny_kezdete, esemeny_vege, statusz)
-        VALUES (p_nev, p_korhatar, p_erdeklodesi_kor, p_tartozkodasi_radiusz, p_esemeny_kezdete, p_esemeny_vege, 'Aktív');
+        VALUES (p_nev, p_korhatar, p_erdeklodesi_kor, p_tartozkodasi_radiusz, p_esemeny_kezdete, p_esemeny_vege, 'AktÃ­v');
     END Esemeny_Felvetel;
 
     PROCEDURE TorolEsemeny(
@@ -90,12 +90,12 @@ CREATE OR REPLACE PACKAGE BODY FelhasznaloEsemenyKezeles AS
         WHERE id = p_esemeny_id;
 
         COMMIT;
-        DBMS_OUTPUT.PUT_LINE('Esemény törölve.');
+        DBMS_OUTPUT.PUT_LINE('EsemÃ©ny tÃ¶rÃ¶lve.');
     END TorolEsemeny;
 END FelhasznaloEsemenyKezeles;
 /
 
-CREATE OR REPLACE PACKAGE EsemenyAjánlás AS
+CREATE OR REPLACE PACKAGE EsemenyAjanlas AS
     PROCEDURE Ajanlott_Esemenyek(
         p_felhasznalo_id IN NUMBER,
         p_ajanlott_1 OUT NUMBER,
@@ -105,10 +105,10 @@ CREATE OR REPLACE PACKAGE EsemenyAjánlás AS
     FUNCTION KivalasztEsemenyekRADIUSZ(
         p_radius IN NUMBER
     ) RETURN SYS_REFCURSOR;
-END EsemenyAjánlás;
+END EsemenyAjanlas;
 /
 
-CREATE OR REPLACE PACKAGE BODY EsemenyAjánlás AS
+CREATE OR REPLACE PACKAGE BODY EsemenyAjanlas AS
     PROCEDURE Ajanlott_Esemenyek(
         p_felhasznalo_id IN NUMBER,
         p_ajanlott_1 OUT NUMBER,
@@ -140,5 +140,5 @@ CREATE OR REPLACE PACKAGE BODY EsemenyAjánlás AS
 
         RETURN esemeny_cursor;
     END KivalasztEsemenyekRADIUSZ;
-END EsemenyAjánlás;
+END EsemenyAjanlas;
 /
