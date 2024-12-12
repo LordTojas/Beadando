@@ -5,7 +5,7 @@ CREATE TABLE Felhasznalo (
     erdeklodesi_kor VARCHAR2(500),
     tartozkodasi_radiusz NUMBER CHECK (tartozkodasi_radiusz >= 0),
     regisztracio_ideje DATE DEFAULT SYSDATE NOT NULL,
-    statusz VARCHAR2(50) CHECK (statusz IN ('Aktív', 'Inaktív')) NOT NULL
+    statusz VARCHAR2(50) CHECK (statusz IN ('Aktiv', 'Inaktiv')) NOT NULL
 );
 
 CREATE TABLE Esemeny (
@@ -16,7 +16,7 @@ CREATE TABLE Esemeny (
     tartozkodasi_radiusz NUMBER CHECK (tartozkodasi_radiusz >= 0),
     esemeny_kezdete DATE DEFAULT SYSDATE NOT NULL,
     esemeny_vege DATE DEFAULT SYSDATE NOT NULL,
-    statusz VARCHAR2(50) CHECK (statusz IN ('Aktív', 'Inaktív')) NOT NULL
+    statusz VARCHAR2(50) CHECK (statusz IN ('Aktiv', 'Inaktiv')) NOT NULL
 );
 
 CREATE TABLE Esemeny_Kedveles (
